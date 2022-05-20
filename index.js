@@ -161,3 +161,4 @@ function x3Check(arr, arrInd, num) {
   }
   return true;
 }
+
