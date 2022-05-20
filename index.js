@@ -1,4 +1,4 @@
-//.......
+// .......
 
 const fs = require('fs');
 // функция которая возвращает указанную строку в массиве массивов
@@ -155,10 +155,43 @@ function x3Check(arr, arrInd, num) {
   test.push(parsingG(arrInd[0], arr, String(num)));
   test.push(parsingV(arrInd[1], arr, String(num)));
   test.push(parsingBox(arrInd[0], arrInd[1], arr, String(num)));
-  let res = test.find((el) => el === true);
+  const res = test.find((el) => el === true);
   if (res === true) {
     return false;
   }
   return true;
 }
 
+// проверят получиться ли поставить это число в будущем, если нет возвращает false иначе массив
+function finalCheck(arr) {
+  const arrInd = searchEmptyValue(arr);
+  if (!searchEmptyValue(arr)) {
+    return arr;
+  }
+  if (i > 9) {
+    return false;
+  }
+  if (x3Check(arr, arrInd, i)) {
+    arr[arrInd[0]][arrInd[1]] = String(i);
+    return finalCheck(arr);
+  }
+}
+
+function runSudoku(arr) {
+  let arrInd = searchEmptyValue(arr);
+  if ((searchEmptyValue(arr)) === false) {
+    return arr;
+  }
+  for (let i = 1; i < 11; i++) {
+    if (x3Check(arr, arrInd, i)) {
+      arr[arrInd[0]][arrInd[1]] = String(i);
+      return runSudoku(arr);
+    }
+  }
+  return runSudoku(arr);
+}
+
+
+console.table(runSudoku(returnStr(0)));
+console.table(returnStr(0));
+// да игра поставить
